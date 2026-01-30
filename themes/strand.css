@@ -5,28 +5,28 @@
 /* ---- PP Telegraf Font ---- */
 @font-face {
   font-family: 'PP Telegraf';
-  src: url('../fonts/PPTelegraf-UltraLight.woff2') format('woff2');
+  src: url('../assets/PPTelegraf-UltraLight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'PP Telegraf';
-  src: url('../fonts/PPTelegraf-Regular.woff2') format('woff2');
+  src: url('../assets/PPTelegraf-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'PP Telegraf';
-  src: url('../fonts/PPTelegraf-Bold.woff2') format('woff2');
+  src: url('../assets/PPTelegraf-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'PP Telegraf';
-  src: url('../fonts/PPTelegraf-Black.woff2') format('woff2');
+  src: url('../assets/PPTelegraf-Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
 }

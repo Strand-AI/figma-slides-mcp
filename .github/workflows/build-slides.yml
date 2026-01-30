@@ -55,6 +55,9 @@ jobs:
           echo "All builds complete. Contents of dist:"
           ls -la dist/
 
+      - name: Copy assets to dist
+        run: cp -r assets dist/
+
       - name: Generate index page
         run: bash scripts/generate-index.sh
 
