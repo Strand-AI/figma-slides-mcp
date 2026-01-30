@@ -142,7 +142,7 @@ const html = `<!DOCTYPE html>
     .deck.hidden { display: none; }
     .thumb {
       flex-shrink: 0;
-      width: 180px;
+      width: 300px;
       line-height: 0;
       border-right: 1px solid #f0efeb;
     }
