@@ -12,7 +12,7 @@ footer: "Strand AI  ·  Confidential"
 ![w:400](assets/logo-white.svg)
 
 <span style="color:#fff;font-weight:700">Oded</span> — Enable Medicine (petabyte-scale spatial biology platform)
-<span style="color:#fff;font-weight:700">Yue</span> — EM / Pathos / Tempus AI (foundation models, 1,000 H200s)
+<span style="color:#fff;font-weight:700">Yue</span> — EM / Pathos / Tempus AI (foundation models, 1000 H200s)
 
 Backed by Y Combinator
 
@@ -36,9 +36,9 @@ We build the **missing data layer** for the next generation of medicine — tran
 
 ### In Silico Screening
 
-- **Receptor-ligand prediction models** — screen your 300+ receptor library computationally before committing to mouse studies
-- **Signaling pathway modeling** — predict JAK2 and other pathway outputs from receptor configurations
-- **Expression optimization** — model protein ratios and stoichiometry for multi-gene constructs
+- **Receptor-ligand prediction** — screen 300+ receptors computationally before mouse studies
+- **Signaling pathway modeling** — predict JAK2 outputs from receptor configurations
+- **Expression optimization** — model protein ratios for multi-gene constructs
 
 </div>
 <div style="flex:1">
@@ -68,7 +68,7 @@ We build the **missing data layer** for the next generation of medicine — tran
 
 - Test 300 receptors → 300 mouse experiments
 - Months of iteration
-- $$$$ per candidate
+- High cost per candidate
 
 </div>
 <div style="flex:1">
