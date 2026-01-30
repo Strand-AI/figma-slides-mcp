@@ -1,17 +1,12 @@
-name: Build Slides
+name: Build & Deploy Slides
 
 on:
   push:
     branches: [main]
-    paths:
-      - "*.md"
-      - "themes/**"
-      - "assets/**"
-      - "fonts/**"
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +20,6 @@ jobs:
       - name: Find all slide decks
         id: decks
         run: |
-          # Find .md files with "marp: true" frontmatter
           decks=""
           for f in *.md; do
             if head -5 "$f" | grep -q "marp: true"; then
@@ -34,24 +28,63 @@ jobs:
           done
           echo "files=$decks" >> "$GITHUB_OUTPUT"
 
-      - name: Build PDFs
+      - name: Build HTML, PDF, and PPTX
         run: |
           mkdir -p dist
           for f in ${{ steps.decks.outputs.files }}; do
             name="${f%.md}"
+            npx marp --html --allow-local-files --theme-set themes/ "$f" -o "dist/${name}.html"
             npx marp --html --allow-local-files --theme-set themes/ --pdf "$f" -o "dist/${name}.pdf"
-          done
-
-      - name: Build PPTX
-        run: |
-          for f in ${{ steps.decks.outputs.files }}; do
-            name="${f%.md}"
             npx marp --html --allow-local-files --theme-set themes/ --pptx "$f" -o "dist/${name}.pptx"
           done
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - name: Generate index page
+        run: |
+          cat > dist/index.html << 'HEREDOC'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Strand AI — Slide Decks</title>
+            <style>
+              * { margin: 0; padding: 0; box-sizing: border-box; }
+              body { font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif; background: #f7f7f5; color: #00120a; padding: 60px 40px; }
+              h1 { font-size: 1.8em; color: #004d3b; margin-bottom: 8px; }
+              .subtitle { color: #888; margin-bottom: 40px; font-size: 0.95em; }
+              .deck { background: #fff; border-radius: 10px; padding: 24px 28px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+              .deck h2 { font-size: 1.15em; color: #004d3b; margin-bottom: 10px; }
+              .deck a { color: #004d3b; text-decoration: none; margin-right: 18px; font-size: 0.9em; font-weight: 500; }
+              .deck a:hover { text-decoration: underline; }
+            </style>
+          </head>
+          <body>
+            <h1>Strand AI — Slide Decks</h1>
+            <p class="subtitle">Auto-built from main</p>
+          HEREDOC
+
+          for f in dist/*.html; do
+            name=$(basename "$f" .html)
+            [ "$name" = "index" ] && continue
+            title=$(echo "$name" | sed 's/-/ /g; s/\b\(.\)/\u\1/g')
+            cat >> dist/index.html << DECK
+            <div class="deck">
+              <h2>${title}</h2>
+              <a href="${name}.html">View slides</a>
+              <a href="${name}.pdf">PDF</a>
+              <a href="${name}.pptx">PPTX</a>
+            </div>
+          DECK
+          done
+
+          cat >> dist/index.html << 'HEREDOC'
+          </body>
+          </html>
+          HEREDOC
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
-          name: slides
-          path: dist/
-          retention-days: 30
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=strand-slides
