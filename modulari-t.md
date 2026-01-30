@@ -79,6 +79,7 @@ zero accuracy loss
 - Train a model on your existing paired data
 - Predict outcomes before running experiments
 - Validate only the top candidates
+- You now have in house ML! 
 
 </div>
 </div>
