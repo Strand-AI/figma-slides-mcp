@@ -82,9 +82,17 @@ jobs:
           </html>
           HEREDOC
 
+      - name: Create Cloudflare Pages project (if needed)
+        continue-on-error: true
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages project create strand-slides --production-branch main
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages project create strand-slides --production-branch main 2>/dev/null || true && pages deploy dist --project-name=strand-slides --commit-dirty=true
+          command: pages deploy dist --project-name=strand-slides --commit-dirty=true
