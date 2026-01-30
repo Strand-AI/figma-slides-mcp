@@ -48,12 +48,9 @@ jobs:
             name="$(basename "${f%.md}")"
             src=".build/$(basename "$f")"
             echo "Building $name..."
-            npx marp --html --allow-local-files --theme-set themes/ "$src" -o "dist/${name}.html" </dev/null
-            echo "Built HTML"
-            npx marp --html --allow-local-files --theme-set themes/ --pdf "$src" -o "dist/${name}.pdf" </dev/null
-            echo "Built PDF"
-            npx marp --html --allow-local-files --theme-set themes/ --pptx "$src" -o "dist/${name}.pptx" </dev/null
-            echo "Built PPTX"
+            npx marp --html --allow-local-files --theme-set themes/ -o "dist/${name}.html" -- "$src"
+            npx marp --html --allow-local-files --theme-set themes/ --pdf -o "dist/${name}.pdf" -- "$src"
+            npx marp --html --allow-local-files --theme-set themes/ --pptx -o "dist/${name}.pptx" -- "$src"
           done
           echo "All builds complete. Contents of dist:"
           ls -la dist/
