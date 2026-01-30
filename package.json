@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "marp --server slides.md",
-    "build": "marp slides.md -o dist/index.html",
-    "pdf": "marp slides.md -o dist/slides.pdf",
-    "pptx": "marp slides.md -o dist/slides.pptx"
+    "dev": "marp --server --html --theme-set themes/ -I .",
+    "build": "marp --html --theme-set themes/ slides.md -o dist/index.html",
+    "pdf": "marp --html --theme-set themes/ slides.md -o dist/slides.pdf",
+    "pptx": "marp --html --theme-set themes/ slides.md -o dist/slides.pptx"
   },
   "keywords": [],
   "author": "",
