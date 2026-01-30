@@ -40,15 +40,23 @@ jobs:
           done
 
       - name: Build HTML, PDF, and PPTX
+        shell: bash
         run: |
+          set -euo pipefail
           mkdir -p dist
           for f in ${{ steps.decks.outputs.files }}; do
             name="$(basename "${f%.md}")"
             src=".build/$(basename "$f")"
-            npx marp --html --allow-local-files --theme-set themes/ "$src" -o "dist/${name}.html" < /dev/null
-            npx marp --html --allow-local-files --theme-set themes/ --pdf "$src" -o "dist/${name}.pdf" < /dev/null
-            npx marp --html --allow-local-files --theme-set themes/ --pptx "$src" -o "dist/${name}.pptx" < /dev/null
+            echo "Building $name..."
+            npx marp --html --allow-local-files --theme-set themes/ "$src" -o "dist/${name}.html" </dev/null
+            echo "Built HTML"
+            npx marp --html --allow-local-files --theme-set themes/ --pdf "$src" -o "dist/${name}.pdf" </dev/null
+            echo "Built PDF"
+            npx marp --html --allow-local-files --theme-set themes/ --pptx "$src" -o "dist/${name}.pptx" </dev/null
+            echo "Built PPTX"
           done
+          echo "All builds complete. Contents of dist:"
+          ls -la dist/
 
       - name: Generate index page
         run: bash scripts/generate-index.sh
