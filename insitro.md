@@ -45,9 +45,9 @@ We build **cross-modal prediction models** from paired datasets — the same par
 
 ### Why this complements your work
 
-- Your AACR framework imputes **genomic features** (ATAC-seq, CNV, RNA) from H&E embeddings
-- We impute **protein-level spatial features** (mIF panels) — a different output modality from the same input
-- Potential to extend your Virtual Human with a spatial proteomics layer
+- You impute **genomic features** (ATAC-seq, CNV, RNA) from H&E
+- We impute **spatial protein** (mIF panels) — different output, same input
+- Extends your Virtual Human with a proteomics layer
 
 </div>
 </div>
