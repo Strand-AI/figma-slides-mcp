@@ -45,9 +45,9 @@ jobs:
           for f in ${{ steps.decks.outputs.files }}; do
             name="$(basename "${f%.md}")"
             src=".build/$(basename "$f")"
-            npx marp --html --allow-local-files --theme-set themes/ "$src" -o "dist/${name}.html"
-            npx marp --html --allow-local-files --theme-set themes/ --pdf "$src" -o "dist/${name}.pdf"
-            npx marp --html --allow-local-files --theme-set themes/ --pptx "$src" -o "dist/${name}.pptx"
+            npx marp --html --allow-local-files --theme-set themes/ "$src" -o "dist/${name}.html" < /dev/null
+            npx marp --html --allow-local-files --theme-set themes/ --pdf "$src" -o "dist/${name}.pdf" < /dev/null
+            npx marp --html --allow-local-files --theme-set themes/ --pptx "$src" -o "dist/${name}.pptx" < /dev/null
           done
 
       - name: Generate index page
