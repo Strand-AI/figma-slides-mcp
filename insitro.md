@@ -21,34 +21,60 @@ Backed by Y Combinator
 <!-- _class: dark -->
 <!-- _paginate: false -->
 
-## Our Vision
+## We do biological imputation at scale
 
-We build the **missing data layer** for the next generation of medicine — transforming sparse patient profiles into complete multimodal datasets through biological imputation.
+We build **cross-modal prediction models** from paired datasets — the same paradigm as your H&E → molecular work (AACR '23, medRxiv '24), but focused on **spatial protein** prediction.
 
 ---
 
 <!-- _paginate: false -->
 
-## What we can do for Insitro
+## H&E → mIF: virtual spatial proteomics
 
 <div style="display:flex;gap:60px;margin-top:20px">
 <div style="flex:1">
 
-### Services
+### What we're training
 
-- **Inference optimization** — we took CZI's VariantFormer from ~$93 to $1.50/sample
+- **H&E → 193-biomarker mIF** — pan-cancer virtual staining from paired tissue datasets
+- **3.4M patches** — 50x larger than current SOTA training sets
+- Predicts spatially resolved protein expression, not just slide-level labels
+
+</div>
+<div style="flex:1">
+
+### Why this complements your work
+
+- Your AACR framework imputes **genomic features** (ATAC-seq, CNV, RNA) from H&E embeddings
+- We impute **protein-level spatial features** (mIF panels) — a different output modality from the same input
+- Potential to extend your Virtual Human with a spatial proteomics layer
+
+</div>
+</div>
+
+---
+
+<!-- _paginate: false -->
+
+## Inference optimization
+
+<div style="display:flex;gap:60px;margin-top:20px">
+<div style="flex:1">
+
+### Track record
+
+- **CZI VariantFormer** — ~$93 → $1.50/sample
   63x faster · zero accuracy loss
-- **GPU infrastructure** — deep expertise running large-scale Bio/ML workloads
+- Deep expertise in large-scale Bio/ML workloads
   H200s · B200s
 
 </div>
 <div style="flex:1">
 
-### Model Building
+### For insitro
 
-- **Imputation models from paired datasets** — we build cross-modal prediction models so you can infer missing data
-- **Currently training H&E → mIF model** — pan-cancer virtual staining
-  193 biomarkers · 3.4M patches · 50x larger than SOTA
+- Your data processing pipelines ingest live cell imaging, scRNA-seq, DNA-encoded libraries at scale
+- We can profile and optimize your most expensive inference workloads with the same approach
 
 </div>
 </div>
