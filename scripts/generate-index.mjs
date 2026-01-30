@@ -84,7 +84,7 @@ const deckCards = decks
     const pdfLink = pdf ? `<a href="${pdf}" download>PDF</a>` : "";
     const pptxLink = pptx ? `<a href="${pptx}" download>PPTX</a>` : "";
     return `
-    <div class="deck">
+    <div class="deck" data-title="${title.toLowerCase()}">
       ${thumbHTML}
       <div class="deck-info">
         <h2>${title}</h2>
@@ -115,52 +115,98 @@ const html = `<!DOCTYPE html>
       margin: 0 auto;
     }
     h1 { font-size: 1.8em; color: #004d3b; margin-bottom: 8px; }
-    .subtitle { color: #888; margin-bottom: 40px; font-size: 0.95em; }
+    .subtitle { color: #888; margin-bottom: 24px; font-size: 0.95em; }
+    .search {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #d9d1bb;
+      border-radius: 8px;
+      font-size: 0.95em;
+      font-family: inherit;
+      background: #fff;
+      color: #00120a;
+      margin-bottom: 24px;
+      outline: none;
+    }
+    .search:focus { border-color: #004d3b; }
+    .search::placeholder { color: #aaa; }
     .deck {
       background: #fff;
       border-radius: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
       overflow: hidden;
+      display: flex;
+      align-items: stretch;
     }
+    .deck.hidden { display: none; }
     .thumb {
-      display: block;
+      flex-shrink: 0;
+      width: 180px;
       line-height: 0;
-      border-bottom: 1px solid #f0efeb;
+      border-right: 1px solid #f0efeb;
     }
     .thumb img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
       display: block;
     }
     .deck-info {
-      padding: 20px 24px;
+      padding: 18px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .deck h2 {
-      font-size: 1.15em;
+      font-size: 1.1em;
       color: #004d3b;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .links a {
       color: #004d3b;
       text-decoration: none;
-      margin-right: 18px;
-      font-size: 0.9em;
+      margin-right: 16px;
+      font-size: 0.85em;
       font-weight: 500;
     }
     .links a:hover { text-decoration: underline; }
+    .no-results {
+      color: #888;
+      font-size: 0.95em;
+      display: none;
+      padding: 20px 0;
+    }
   </style>
 </head>
 <body>
   <h1>Strand AI — Slide Decks</h1>
   <p class="subtitle">Auto-built from main · <time id="build-time" datetime="${buildISO}"></time></p>
+  <input class="search" type="text" placeholder="Search decks..." autofocus />
+  <div id="decks">
+${deckCards}
+  </div>
+  <p class="no-results" id="no-results">No matching decks.</p>
   <script>
     var t = document.getElementById('build-time');
     var d = new Date(t.getAttribute('datetime'));
     t.textContent = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
       + ' at ' + d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+
+    var input = document.querySelector('.search');
+    var decks = document.querySelectorAll('.deck');
+    var noResults = document.getElementById('no-results');
+    input.addEventListener('input', function() {
+      var q = this.value.toLowerCase();
+      var visible = 0;
+      decks.forEach(function(el) {
+        var match = !q || el.getAttribute('data-title').indexOf(q) !== -1;
+        el.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+      noResults.style.display = visible === 0 ? 'block' : 'none';
+    });
   </script>
-${deckCards}
 </body>
 </html>
 `;
