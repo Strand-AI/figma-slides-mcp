@@ -1,0 +1,19 @@
+{
+  "name": "marp-slides",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "marp --server slides.md",
+    "build": "marp slides.md -o dist/index.html",
+    "pdf": "marp slides.md -o dist/slides.pdf",
+    "pptx": "marp slides.md -o dist/slides.pptx"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@marp-team/marp-cli": "^4.2.3"
+  }
+}
