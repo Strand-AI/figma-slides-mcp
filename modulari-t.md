@@ -47,8 +47,9 @@ We help you **predict outcomes of your most expensive experiments in silico** �
 
 ### Infrastructure
 
-- **Inference optimization** — 63x speedup on CZI's VariantFormer, zero accuracy loss
-- **GPU compute** — H200s, B200s for large-scale bio ML
+- **Inference optimization** — 63x speedup on CZI's VariantFormer, from 93$ to 1.50$/sample
+zero accuracy loss
+- **GPU compute** — in-house H200s, B200s for training and inference.
 
 </div>
 </div>
@@ -94,4 +95,4 @@ We help you **predict outcomes of your most expensive experiments in silico** �
 3. **Screen in silico** — rank candidates by predicted outcome
 4. **Validate top hits** — run experiments only on the most promising candidates
 
-Your data stays yours. Models can run in your infrastructure.
+We can work in your Cloud or ours and deliver the results to you.
