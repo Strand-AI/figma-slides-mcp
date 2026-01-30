@@ -1,0 +1,371 @@
+/* @theme strand */
+
+@import 'default';
+
+/* ---- PP Telegraf Font ---- */
+@font-face {
+  font-family: 'PP Telegraf';
+  src: url('../fonts/PPTelegraf-UltraLight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PP Telegraf';
+  src: url('../fonts/PPTelegraf-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PP Telegraf';
+  src: url('../fonts/PPTelegraf-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PP Telegraf';
+  src: url('../fonts/PPTelegraf-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+}
+
+:root {
+  --pthalo: #004D3B;
+  --dark-slate: #00120A;
+  --ash-beige: #F2F1ED;
+  --ash-beige-dark: #D9D1BB;
+  --white: #FFFFFF;
+  --black: #000000;
+}
+
+/* ---- Base (light) slide ---- */
+section {
+  background-color: var(--white);
+  color: var(--dark-slate);
+  font-family: 'PP Telegraf', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+  padding: 60px 70px;
+  justify-content: flex-start;
+}
+
+/* Grain noise overlay on all slides */
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 2048 2048' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 512px 512px;
+}
+
+/* Ensure content sits above the grain */
+section > * {
+  position: relative;
+  z-index: 1;
+}
+
+section::after {
+  /* page number — bottom left */
+  z-index: 1;
+  color: rgba(0, 77, 59, 0.4);
+  font-size: 0.6em;
+  font-weight: 400;
+  position: absolute;
+  bottom: 30px;
+  left: 70px;
+  right: auto;
+  width: auto;
+  height: auto;
+  padding: 0;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'PP Telegraf', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--pthalo);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 2.4em;
+  font-weight: 900;
+  border-bottom: 3px solid var(--pthalo);
+  padding-bottom: 0.2em;
+}
+
+h2 {
+  font-size: 1.8em;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+/* Links */
+a {
+  color: var(--pthalo);
+  text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+  color: var(--dark-slate);
+}
+
+li::marker {
+  color: var(--pthalo);
+}
+
+/* Code */
+code {
+  background: var(--ash-beige);
+  color: var(--dark-slate);
+  border-radius: 4px;
+  padding: 0.1em 0.3em;
+}
+
+pre {
+  background: var(--dark-slate);
+  border-radius: 8px;
+  border-left: 4px solid var(--pthalo);
+  padding: 1em;
+}
+
+pre code {
+  background: transparent;
+  color: var(--ash-beige);
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid var(--pthalo);
+  color: #4a4a4a;
+  background: var(--ash-beige);
+  padding: 0.5em 1em;
+  border-radius: 0 8px 8px 0;
+}
+
+/* Tables */
+table {
+  font-size: 0.85em;
+}
+
+table th {
+  background: var(--pthalo);
+  color: var(--white);
+  font-weight: 700;
+}
+
+table td {
+  border-color: var(--ash-beige-dark);
+}
+
+/* Strong/bold */
+strong {
+  color: var(--pthalo);
+  font-weight: 700;
+}
+
+/* Header & footer */
+header {
+  position: relative;
+  z-index: 1;
+  color: var(--pthalo);
+  font-size: 0.6em;
+  font-weight: 400;
+}
+
+footer {
+  position: absolute;
+  z-index: 1;
+  bottom: 30px;
+  right: 70px;
+  left: auto;
+  width: auto;
+  color: rgba(0, 77, 59, 0.5);
+  font-size: 0.55em;
+  font-weight: 400;
+  text-align: right;
+}
+
+/* ---- Dark variant (Pthalo background) ---- */
+section.dark {
+  background-color: var(--pthalo);
+  color: var(--ash-beige);
+}
+
+section.dark::before {
+  opacity: 0.12;
+}
+
+section.dark h1,
+section.dark h2,
+section.dark h3,
+section.dark h4,
+section.dark h5,
+section.dark h6 {
+  color: var(--white);
+}
+
+section.dark h1 {
+  border-bottom-color: var(--ash-beige-dark);
+}
+
+section.dark p,
+section.dark li,
+section.dark ul,
+section.dark ol {
+  color: var(--ash-beige);
+}
+
+section.dark strong {
+  color: var(--white);
+}
+
+section.dark a {
+  color: var(--ash-beige-dark);
+}
+
+section.dark code {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--ash-beige);
+}
+
+section.dark pre {
+  background: var(--dark-slate);
+  border-left-color: var(--ash-beige-dark);
+}
+
+section.dark pre code {
+  background: transparent;
+}
+
+section.dark blockquote {
+  border-left-color: var(--ash-beige-dark);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ash-beige);
+}
+
+section.dark li::marker {
+  color: var(--ash-beige-dark);
+}
+
+section.dark header {
+  color: var(--ash-beige-dark);
+}
+
+section.dark footer {
+  color: rgba(217, 209, 187, 0.5);
+}
+
+section.dark::after {
+  color: var(--ash-beige-dark);
+}
+
+section.dark table th {
+  background: var(--dark-slate);
+}
+
+/* ---- Lead variant (title/section slides) ---- */
+section.lead {
+  background-color: var(--pthalo);
+  color: var(--white);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  text-align: center;
+}
+
+section.lead::before {
+  opacity: 0.12;
+}
+
+section.lead h1,
+section.lead h2,
+section.lead h3 {
+  color: var(--white);
+  border-bottom: none;
+  text-align: center;
+}
+
+section.lead h1 {
+  font-size: 3em;
+  font-weight: 900;
+}
+
+section.lead p {
+  color: var(--ash-beige-dark);
+  font-size: 1.1em;
+  font-weight: 200;
+}
+
+section.lead::after {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+section.lead footer {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* ---- Beige variant ---- */
+section.beige {
+  background-color: var(--ash-beige);
+  color: var(--dark-slate);
+}
+
+/* ---- Slate variant (darkest) ---- */
+section.slate {
+  background-color: var(--dark-slate);
+  color: var(--ash-beige);
+}
+
+section.slate::before {
+  opacity: 0.15;
+}
+
+section.slate h1,
+section.slate h2,
+section.slate h3,
+section.slate h4,
+section.slate h5,
+section.slate h6 {
+  color: var(--ash-beige-dark);
+}
+
+section.slate h1 {
+  border-bottom-color: var(--pthalo);
+}
+
+section.slate p,
+section.slate li,
+section.slate ul,
+section.slate ol {
+  color: var(--ash-beige);
+}
+
+section.slate strong {
+  color: var(--white);
+}
+
+section.slate pre {
+  background: rgba(255, 255, 255, 0.05);
+  border-left-color: var(--pthalo);
+}
+
+section.slate::after {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+section.slate table th {
+  background: var(--pthalo);
+}

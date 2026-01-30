@@ -29,7 +29,7 @@ We build the **missing data layer** for the next generation of medicine — tran
 
 <!-- _paginate: false -->
 
-## What We Offer
+## What we can do for Insitro
 
 <div style="display:flex;gap:60px;margin-top:20px">
 <div style="flex:1">
@@ -53,4 +53,4 @@ We build the **missing data layer** for the next generation of medicine — tran
 </div>
 </div>
 
-<small style="margin-top:auto;color:#666">*We can work within your VPC or we run on our compute and deliver the results.</small>
+<small style="margin-top:auto;color:#666">*We can work within your VPC or run on Strand AI compute and deliver the results.</small>
