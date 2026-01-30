@@ -1,0 +1,57 @@
+name: Build Slides
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "*.md"
+      - "themes/**"
+      - "assets/**"
+      - "fonts/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install
+
+      - name: Find all slide decks
+        id: decks
+        run: |
+          # Find .md files with "marp: true" frontmatter
+          decks=""
+          for f in *.md; do
+            if head -5 "$f" | grep -q "marp: true"; then
+              decks="$decks $f"
+            fi
+          done
+          echo "files=$decks" >> "$GITHUB_OUTPUT"
+
+      - name: Build PDFs
+        run: |
+          mkdir -p dist
+          for f in ${{ steps.decks.outputs.files }}; do
+            name="${f%.md}"
+            npx marp --html --allow-local-files --theme-set themes/ --pdf "$f" -o "dist/${name}.pdf"
+          done
+
+      - name: Build PPTX
+        run: |
+          for f in ${{ steps.decks.outputs.files }}; do
+            name="${f%.md}"
+            npx marp --html --allow-local-files --theme-set themes/ --pptx "$f" -o "dist/${name}.pptx"
+          done
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: slides
+          path: dist/
+          retention-days: 30
