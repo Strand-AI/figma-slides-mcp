@@ -44,13 +44,14 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p dist
+          stamp=$(date -u +"%Y%m%d")
           for f in ${{ steps.decks.outputs.files }}; do
             name="$(basename "${f%.md}")"
             src=".build/$(basename "$f")"
             echo "Building $name..."
             npx marp --html --allow-local-files --theme-set themes/ -o "dist/${name}.html" -- "$src"
-            npx marp --html --allow-local-files --theme-set themes/ --pdf -o "dist/${name}.pdf" -- "$src"
-            npx marp --html --allow-local-files --theme-set themes/ --pptx -o "dist/${name}.pptx" -- "$src"
+            npx marp --html --allow-local-files --theme-set themes/ --pdf -o "dist/${name}-${stamp}.pdf" -- "$src"
+            npx marp --html --allow-local-files --theme-set themes/ --pptx -o "dist/${name}-${stamp}.pptx" -- "$src"
           done
           echo "All builds complete. Contents of dist:"
           ls -la dist/
@@ -59,7 +60,7 @@ jobs:
         run: cp -r assets dist/
 
       - name: Generate index page
-        run: bash scripts/generate-index.sh
+        run: node scripts/generate-index.mjs
 
       - name: Create Cloudflare Pages project (if needed)
         continue-on-error: true
