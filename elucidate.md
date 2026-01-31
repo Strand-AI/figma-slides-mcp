@@ -84,7 +84,16 @@ The throughput bottleneck: spatial omics assays cost **$5-10K+ per slide** and t
 ## The first step: H&E → mIF
 
 Your paired data + our ML and compute expertise = **accelerate past SOTA**.
-We're already training the first cross-modal bridge.
+
+```mermaid
+graph LR
+    A["Your paired data<br/>H&E + mIF"] --> C["POSTMAN<br/>fine-tuned"]
+    B["Our ML + compute<br/>architecture, GPUs"] --> C
+    C --> D["Virtual mIF<br/>193 biomarkers<br/>from any H&E"]
+    style A fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
+    style B fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
+    style D fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
+```
 
 <!--
 - POSTMAN is already training — not a proposal, a product
@@ -154,28 +163,17 @@ We're already training the first cross-modal bridge.
 
 ## The cost equation changes entirely
 
-<div style="display:flex;gap:60px;margin-top:10px">
-<div style="flex:1">
+```mermaid
+graph LR
+    A["Small paired subset<br/>~$5-10K/slide"] --> B["Fine-tune<br/>POSTMAN"]
+    B --> C["Predict 193 biomarkers<br/>across full H&E archive"]
+    C --> D["Thousands of patients<br/>same budget"]
+    style A fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
+    style D fill:#00120A,color:#F2F1ED,stroke:#00120A
+```
 
-### Today
-
-- Spatial proteomics (mIF): **~$5K-10K/slide**
-- Spatial transcriptomics: **~$5K-7K/slide**
-- Days of lab time per assay
-- Profile dozens to hundreds of patients — not thousands
-
-</div>
-<div style="flex:1">
-
-### With virtual staining
-
-- Run the expensive assay on a **small paired subset**
-- Fine-tune POSTMAN on that paired data
-- Predict **193 biomarkers** across your full H&E archive at **GPU cost**
-- Scale from hundreds to **thousands of patients**
-
-</div>
-</div>
+Today: spatial proteomics costs **$5-10K/slide**, days of lab time, limits you to hundreds of patients.
+With virtual staining: run the assay on a small subset, predict the rest — scale to **thousands**.
 
 <!--
 - MACSima can do 200+ proteins but ~1 day per staining round
@@ -241,13 +239,11 @@ The same cost-reduction strategy applies to transcriptomics:
 
 ```mermaid
 graph LR
-    A["<b>Section A</b><br/>50-plex mIF panel"] --> C["<b>Registration<br/>+ Imputation</b>"]
-    B["<b>Section B</b><br/>Single IHC<br/>(serial section)"] --> C
-    C --> D["<b>51-plex panel</b><br/>Extra protein fused<br/>into multiplex stack"]
-    style A fill:#004D3B,color:#fff,stroke:#004D3B
+    A["Section A<br/>50-plex mIF"] --> C["Registration<br/>+ Imputation"]
+    B["Section B<br/>Single IHC"] --> C
+    C --> D["51-plex panel<br/>fused output"]
     style B fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
     style C fill:#00120A,color:#F2F1ED,stroke:#00120A
-    style D fill:#004D3B,color:#fff,stroke:#004D3B
 ```
 
 - No published method fuses **cross-section multiplex + IHC** into an expanded panel

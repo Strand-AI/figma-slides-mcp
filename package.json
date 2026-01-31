@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "marp --server --html --allow-local-files --theme-set themes/ -I .",
+    "dev": "bash scripts/dev.sh",
     "build": "marp --html --allow-local-files --theme-set themes/",
     "pdf": "marp --html --allow-local-files --theme-set themes/ --pdf",
     "pptx": "marp --html --allow-local-files --theme-set themes/ --pptx",

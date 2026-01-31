@@ -86,11 +86,13 @@ Available logos:
 
 ## Mermaid Diagrams
 
-Marp doesn't support Mermaid natively. We have a preprocessing pipeline that converts fenced ```` ```mermaid ```` blocks into inline base64 SVGs at build time.
+Marp doesn't support Mermaid natively. We have a preprocessing pipeline that converts fenced ```` ```mermaid ```` blocks into `<img>` tags with base64 SVG data URIs at build time.
 
-**How it works**: `scripts/preprocess-mermaid.sh` finds mermaid code blocks, renders them to SVG via `mmdc` (@mermaid-js/mermaid-cli), and embeds the result as a base64 data URI image. The CI workflow (`.github/workflows/build-slides.yml`) runs this automatically before building.
+**How it works**: `scripts/preprocess-mermaid.sh` finds mermaid code blocks, renders them to SVG via `mmdc` (@mermaid-js/mermaid-cli) with a custom theme (`scripts/mermaid-config.json`), and embeds the result as an `<img>` tag with a base64 data URI. The CI workflow runs this automatically before building.
 
-**Usage** — just write standard mermaid in your markdown:
+**Why `<img>` and not inline SVG**: Inline SVGs inherit CSS from the parent Marp slide. On dark/lead slides, this causes text colors and arrows to become invisible. Using `<img>` with a data URI sandboxes the SVG from slide styles.
+
+**Usage** — write standard mermaid in your markdown:
 
 ````markdown
 ```mermaid
@@ -99,14 +101,29 @@ graph LR
 ```
 ````
 
-**Sizing**: Mermaid blocks render as inline images. Control size with Marp image syntax by placing a size directive comment right before the block, or wrap in a div. The rendered output becomes `![diagram](data:image/svg+xml;base64,...)`.
+**Theming**: The base theme in `scripts/mermaid-config.json` uses the Strand color palette (pthalo green nodes, white text, pthalo arrows). To customize individual nodes, use `style` directives with brand colors:
 
-**Local dev**: `npm run dev` does NOT preprocess mermaid — you'll see raw code blocks. Use `npm run build` or the CI pipeline to see rendered diagrams. To preview locally:
-
-```bash
-bash scripts/preprocess-mermaid.sh deck.md > .build/deck.md
-npx marp .build/deck.md --html --allow-local-files --theme-set themes/
+````markdown
+```mermaid
+graph LR
+    A["Input data"] --> B["Model"] --> C["Output"]
+    style A fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
+    style C fill:#00120A,color:#F2F1ED,stroke:#00120A
 ```
+````
+
+Available node colors:
+- **Default** (no style): pthalo green `#004D3B` fill, white text
+- **Light input**: `fill:#F2F1ED,color:#00120A,stroke:#D9D1BB` (ash beige)
+- **Dark emphasis**: `fill:#00120A,color:#F2F1ED,stroke:#00120A` (dark slate)
+
+**Tips**:
+- Keep node labels short — long text makes diagrams hard to read on slides
+- Use `graph LR` (left-to-right) for process flows — fits slide aspect ratio better than `TB`
+- Don't use `<b>` in node labels — the theme handles font weight
+- Diagrams render at `max-height:400px` — keep them simple (3-5 nodes)
+
+**Local dev**: `npm run dev` automatically preprocesses mermaid blocks into `.build/` and serves from there with live reload. It watches for file changes and re-preprocesses. Uses `fswatch` if available, otherwise polls every 2 seconds.
 
 ## Speaker Notes
 

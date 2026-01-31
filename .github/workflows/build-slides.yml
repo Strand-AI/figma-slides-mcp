@@ -31,7 +31,7 @@ jobs:
       - name: Pre-process Mermaid diagrams
         run: |
           mkdir -p .build
-          ln -sf ../assets .build/assets
+          cp -R assets .build/assets
           for f in ${{ steps.decks.outputs.files }}; do
             if grep -q '```mermaid' "$f"; then
               bash scripts/preprocess-mermaid.sh "$f" > ".build/$(basename "$f")"

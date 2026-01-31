@@ -28,33 +28,33 @@ We build the **missing data layer** for the next generation of medicine — tran
 ---
 
 <!-- _paginate: false -->
+<style scoped>section { padding: 50px 70px; }</style>
 
 ## What we can do for Modulari-T
 
-We help you **predict outcomes of your most expensive experiments in silico** — so you can screen more candidates, run fewer experiments, and hit more often.
+**Predict outcomes of your most expensive experiments in silico** — screen more candidates, fewer experiments, higher hit rates.
 
-<div style="display:flex;gap:60px;margin-top:30px">
+<div style="display:flex;gap:60px;margin-top:0">
 <div style="flex:1">
 
 ### In Silico Prediction
 
-- **Custom models from your data** — we build predictive models from your paired experimental data
-- **Screen computationally** — rank candidates by predicted outcome before committing to wet lab
-- **Higher hit rates** — focus resources on the most promising designs
+- **Custom models** from your paired experimental data
+- **Screen computationally** — rank candidates before wet lab
+- **Higher hit rates** — focus on the most promising designs
 
 </div>
 <div style="flex:1">
 
 ### Infrastructure
 
-- **Inference optimization** — 63x speedup on CZI's VariantFormer, from 93$ to 1.50$/sample
-zero accuracy loss
-- **GPU compute** — in-house H200s, B200s for training and inference.
+- **Inference optimization** — 63x speedup on CZI's VariantFormer, $93 → $1.50/sample
+- **GPU compute** — in-house H200s, B200s
 
 </div>
 </div>
 
-<small style="margin-top:auto;color:#666">*We can work within your VPC or run on Strand compute.</small>
+<small style="color:#666;font-size:0.7em">*We can work within your VPC or on Strand compute.</small>
 
 ---
 

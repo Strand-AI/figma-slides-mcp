@@ -1,0 +1,25 @@
+{
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#004D3B",
+    "primaryTextColor": "#FFFFFF",
+    "primaryBorderColor": "#004D3B",
+    "secondaryColor": "#F2F1ED",
+    "secondaryTextColor": "#00120A",
+    "secondaryBorderColor": "#D9D1BB",
+    "tertiaryColor": "#D9D1BB",
+    "tertiaryTextColor": "#00120A",
+    "tertiaryBorderColor": "#D9D1BB",
+    "lineColor": "#004D3B",
+    "textColor": "#00120A",
+    "mainBkg": "#004D3B",
+    "nodeBorder": "#004D3B",
+    "clusterBkg": "#F2F1ED",
+    "clusterBorder": "#D9D1BB",
+    "titleColor": "#00120A",
+    "edgeLabelBackground": "transparent",
+    "fontFamily": "system-ui, -apple-system, sans-serif",
+    "fontSize": "14px",
+    "labelBackground": "transparent"
+  }
+}
