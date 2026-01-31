@@ -50,14 +50,14 @@ The throughput bottleneck: spatial omics assays cost **$5-10K+ per slide** and t
 
 ## We looked into S2-omics & GHIST
 
-<div style="display:flex;gap:60px;margin-top:20px">
+<div style="display:flex;gap:60px;margin-top:10px">
 <div style="flex:1">
 
 ### Where they fall short
 
-- **S2-omics** — right idea (minimize assay cost), but doesn't scale beyond a few samples and cell-type accuracy tops out at 76%
-- **GHIST** — 2020-era UNet 3+ backbone, published PCC of **0.27 on top SVGs** — far below your 0.8 threshold
-- Neither was trained on data that looks like yours
+- **S2-omics** — right idea, but doesn't scale and cell-type accuracy tops out at 76%
+- **GHIST** — 2020-era backbone, PCC of **0.27 on top SVGs** — far below your 0.8 threshold
+- Neither trained on data that looks like yours
 
 </div>
 <div style="flex:1">
@@ -154,7 +154,7 @@ We're already training the first cross-modal bridge.
 
 ## The cost equation changes entirely
 
-<div style="display:flex;gap:60px;margin-top:20px">
+<div style="display:flex;gap:60px;margin-top:10px">
 <div style="flex:1">
 
 ### Today
@@ -162,17 +162,17 @@ We're already training the first cross-modal bridge.
 - Spatial proteomics (mIF): **~$5K-10K/slide**
 - Spatial transcriptomics: **~$5K-7K/slide**
 - Days of lab time per assay
-- You can profile dozens to hundreds of patients — not thousands
+- Profile dozens to hundreds of patients — not thousands
 
 </div>
 <div style="flex:1">
 
 ### With virtual staining
 
-- Run the expensive assay on a **small subset** of paired samples
+- Run the expensive assay on a **small paired subset**
 - Fine-tune POSTMAN on that paired data
-- Predict **193 biomarkers** across your entire H&E archive at **GPU inference cost**
-- Scale from hundreds to **thousands of patients** for the same budget
+- Predict **193 biomarkers** across your full H&E archive at **GPU cost**
+- Scale from hundreds to **thousands of patients**
 
 </div>
 </div>
@@ -239,26 +239,20 @@ The same cost-reduction strategy applies to transcriptomics:
 
 ## Expanding your proteomic panel from IHC
 
-<div style="display:flex;gap:60px;margin-top:20px">
-<div style="flex:1">
+```mermaid
+graph LR
+    A["<b>Section A</b><br/>50-plex mIF panel"] --> C["<b>Registration<br/>+ Imputation</b>"]
+    B["<b>Section B</b><br/>Single IHC<br/>(serial section)"] --> C
+    C --> D["<b>51-plex panel</b><br/>Extra protein fused<br/>into multiplex stack"]
+    style A fill:#004D3B,color:#fff,stroke:#004D3B
+    style B fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
+    style C fill:#00120A,color:#F2F1ED,stroke:#00120A
+    style D fill:#004D3B,color:#fff,stroke:#004D3B
+```
 
-### The problem
-
-- You have a **50-plex mIF panel** on one section and a **single IHC stain** for an extra protein on a serial section
-- Can you **impute that protein into the multiplex stack** — spatially resolved, registered, ready to analyze?
-- Scale it: train on enough pairs and predict new proteins onto the stack from IHC alone
-
-</div>
-<div style="flex:1">
-
-### Why nobody has solved this yet
-
-- **7-UP**, **MIM-CyCIF**, **ExIF** impute missing channels — but only within a single section
-- No published method fuses **cross-section multiplex + single IHC** into an expanded panel
-- Requires serial section registration + panel-aware imputation + cross-stain translation — we build all three
-
-</div>
-</div>
+- No published method fuses **cross-section multiplex + IHC** into an expanded panel
+- Closest work (7-UP, MIM-CyCIF, ExIF) only imputes within a **single section**
+- We build the full pipeline: **registration + imputation + cross-stain translation**
 
 <!--
 - Gul's use case from Jan 20 call

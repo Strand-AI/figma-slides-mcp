@@ -188,7 +188,39 @@ async function main() {
         elData.push(data);
       }
 
-      // ── Overflow check ──────────────────────────────────────────────
+      // ── Overflow check: scrollHeight vs clientHeight ────────────────
+      const sectionOverflow = await section.evaluate((node) => {
+        return {
+          scrollH: node.scrollHeight,
+          clientH: node.clientHeight,
+          scrollW: node.scrollWidth,
+          clientW: node.clientWidth,
+        };
+      });
+
+      if (sectionOverflow.scrollH > sectionOverflow.clientH + TOLERANCE) {
+        const overBy = sectionOverflow.scrollH - sectionOverflow.clientH;
+        issues.push({
+          slide: slideNum,
+          type: "OVERFLOW",
+          element: "<section>",
+          detail: `content overflows vertically by ${overBy}px (scrollHeight ${sectionOverflow.scrollH} > clientHeight ${sectionOverflow.clientH})`,
+          pos: "",
+        });
+      }
+
+      if (sectionOverflow.scrollW > sectionOverflow.clientW + TOLERANCE) {
+        const overBy = sectionOverflow.scrollW - sectionOverflow.clientW;
+        issues.push({
+          slide: slideNum,
+          type: "OVERFLOW",
+          element: "<section>",
+          detail: `content overflows horizontally by ${overBy}px (scrollWidth ${sectionOverflow.scrollW} > clientWidth ${sectionOverflow.clientW})`,
+          pos: "",
+        });
+      }
+
+      // Also check individual elements extending past slide edges
       for (const el of elData) {
         const overflows = [];
         if (el.x + el.width > SLIDE_W + TOLERANCE) {

@@ -84,6 +84,47 @@ Available logos:
 - `assets/logomark-white.svg` — white logomark only
 - `assets/logomark-pthalo.svg` — pthalo green logomark only
 
+## Mermaid Diagrams
+
+Marp doesn't support Mermaid natively. We have a preprocessing pipeline that converts fenced ```` ```mermaid ```` blocks into inline base64 SVGs at build time.
+
+**How it works**: `scripts/preprocess-mermaid.sh` finds mermaid code blocks, renders them to SVG via `mmdc` (@mermaid-js/mermaid-cli), and embeds the result as a base64 data URI image. The CI workflow (`.github/workflows/build-slides.yml`) runs this automatically before building.
+
+**Usage** — just write standard mermaid in your markdown:
+
+````markdown
+```mermaid
+graph LR
+    A[H&E] --> B[Model] --> C[Predicted mIF]
+```
+````
+
+**Sizing**: Mermaid blocks render as inline images. Control size with Marp image syntax by placing a size directive comment right before the block, or wrap in a div. The rendered output becomes `![diagram](data:image/svg+xml;base64,...)`.
+
+**Local dev**: `npm run dev` does NOT preprocess mermaid — you'll see raw code blocks. Use `npm run build` or the CI pipeline to see rendered diagrams. To preview locally:
+
+```bash
+bash scripts/preprocess-mermaid.sh deck.md > .build/deck.md
+npx marp .build/deck.md --html --allow-local-files --theme-set themes/
+```
+
+## Speaker Notes
+
+Use HTML comments (that aren't Marp directives) as speaker notes:
+
+```markdown
+## Slide Title
+
+Content here
+
+<!--
+- Talking point one
+- Talking point two
+-->
+```
+
+Visible in HTML presenter view (press **P**), PPTX (native notes), and PDF (`--pdf-notes` flag). Keep notes as short bulleted lists.
+
 ## Local Dev
 
 ```bash
