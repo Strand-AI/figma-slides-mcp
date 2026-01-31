@@ -81,7 +81,7 @@ We're already training the first cross-modal bridge.
 |--------|---------|
 | Patches | **3.45M** (224x224) |
 | Biomarkers | **193 unique** |
-| Regions | 18,576 |
+| Regions | 18,573 |
 | Total size | **7.5 TB** |
 
 </div>
@@ -216,24 +216,20 @@ The same cost-reduction strategy applies to transcriptomics:
 
 ---
 
-<!-- _class: dark -->
-<!-- _paginate: false -->
-
-## Why Strand AI
-
-- **193-biomarker pan-cancer model** on the largest paired dataset in the field
-- Building this in-house means assembling an ML team, sourcing GPUs, curating paired datasets, and iterating on architectures — **or you work with us** and skip all of that
-- Fine-tuning on your data = **your competitive moat**, not ours
-- **YC W26** — we're only taking 2-3 design partnerships to ensure we can focus on our partners
-
----
-
 <!-- _class: lead -->
 <!-- _footer: "" -->
 <!-- _paginate: false -->
 
 ![w:300](assets/logo-white.svg)
 
-### Next step: scope the POC with Jason
+### Proposed next steps
 
-<span style="color:#D9D1BB">oded@strandai.bio · yue@strandai.bio</span>
+<span style="color:#D9D1BB">
+
+<span style="color:#fff">1.</span> Scope the POC — define accuracy benchmarks, priority indications, target proteins
+
+<span style="color:#fff">2.</span> Index & catalog your paired data — determine what's available and what we need to hit your benchmarks
+
+</span>
+
+<p style="color:#fff !important;margin-top:20px">founders@strandai.com</p>
