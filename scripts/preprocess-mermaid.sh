@@ -26,7 +26,8 @@ while IFS= read -r line; do
     svg_file="$output_dir/diagram_${counter}.svg"
     echo "$mermaid_block" > "$mmd_file"
 
-    if npx mmdc -i "$mmd_file" -o "$svg_file" -b transparent -c "$MERMAID_CONFIG" --quiet 2>/dev/null; then
+    PUPPETEER_CONFIG="$SCRIPT_DIR/puppeteer-config.json"
+    if npx mmdc -i "$mmd_file" -o "$svg_file" -b transparent -c "$MERMAID_CONFIG" -p "$PUPPETEER_CONFIG" --quiet; then
       # Embed as <img> with base64 data URI — isolates SVG from slide CSS
       b64=$(base64 < "$svg_file" | tr -d '\n')
       echo "<div style=\"display:flex;justify-content:center;margin:10px 0\"><img src=\"data:image/svg+xml;base64,${b64}\" style=\"max-width:100%;max-height:400px\" /></div>"
