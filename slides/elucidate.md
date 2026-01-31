@@ -92,6 +92,7 @@ graph LR
     C --> D["Virtual mIF<br/>193 biomarkers<br/>from any H&E"]
     style A fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
     style B fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
+    style C fill:#00120A,color:#F2F1ED,stroke:#00120A
     style D fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
 ```
 
