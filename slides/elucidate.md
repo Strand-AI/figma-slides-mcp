@@ -296,16 +296,14 @@ graph LR
 <!-- _footer: "" -->
 <!-- _paginate: false -->
 
-<div style="display:flex;align-items:center;justify-content:center;gap:30px">
-<img src="../assets/elucidate-logo.png" width="280" />
-<span style="color:#004D3B;font-size:1.5em;font-weight:200">×</span>
-<img src="../assets/logo-pthalo.svg" width="250" />
-</div>
-
 ### Proposed next steps
 
 1. Scope the POC — define accuracy benchmarks, priority indications, target proteins
 
 2. Index & catalog your paired data — determine what's available and what we need to hit your benchmarks
 
-<p style="color:#004D3B;margin-top:20px">founders@strandai.com</p>
+<div style="display:flex;align-items:center;justify-content:center;gap:30px;margin-top:auto">
+<img src="../assets/elucidate-logo.png" width="250" />
+<span style="color:#004D3B;font-size:1.5em;font-weight:200">×</span>
+<img src="../assets/logo-pthalo.svg" width="220" />
+</div>
