@@ -1,6 +1,6 @@
 # Strand AI — Slide Decks
 
-Marp-based slide decks for Strand AI. Each `.md` file in the repo root with `marp: true` frontmatter is a slide deck.
+Marp-based slide decks for Strand AI. Each `.md` file in `slides/` with `marp: true` frontmatter is a slide deck.
 
 ## Stack
 
@@ -25,10 +25,10 @@ footer: "Strand AI  ·  Confidential"
 <!-- _footer: "" -->
 <!-- _paginate: false -->
 
-![w:400](assets/logo-white.svg)
+![w:400](../assets/logo-white.svg)
 ```
 
-The filename becomes the URL slug (e.g., `insitro.md` → `slides.strandai.bio/insitro.html`).
+The filename becomes the URL slug (e.g., `slides/insitro.md` → `slides.strandai.bio/insitro.html`).
 
 ## Theme Classes
 
@@ -71,7 +71,7 @@ Set per-slide with `<!-- _class: name -->`:
   </div>
   ```
 - **Bold** text renders in pthalo green (via theme CSS) — use it for emphasis
-- **Images**: place in `assets/`, reference as `![w:400](assets/filename.svg)`
+- **Images**: place in `assets/`, reference as `![w:400](../assets/filename.svg)`
 - **Footnotes**: `<small style="margin-top:auto;color:#666">*Note text</small>`
 
 ## Assets
@@ -101,7 +101,7 @@ graph LR
 ```
 ````
 
-**Theming**: The base theme in `scripts/mermaid-config.json` uses the Strand color palette (pthalo green nodes, white text, pthalo arrows). To customize individual nodes, use `style` directives with brand colors:
+**Theming**: The base theme in `scripts/mermaid-config.json` uses the Strand color palette (pthalo green nodes, white text, ash beige arrows — visible on both light and dark slides). To customize individual nodes, use `style` directives with brand colors:
 
 ````markdown
 ```mermaid

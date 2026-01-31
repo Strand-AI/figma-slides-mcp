@@ -21,7 +21,7 @@ jobs:
         id: decks
         run: |
           decks=""
-          for f in *.md; do
+          for f in slides/*.md; do
             if head -5 "$f" | grep -q "marp: true"; then
               decks="$decks $f"
             fi

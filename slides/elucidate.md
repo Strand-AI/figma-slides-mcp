@@ -9,7 +9,7 @@ footer: "Strand AI  ·  Confidential"
 <!-- _footer: "" -->
 <!-- _paginate: false -->
 
-![w:400](assets/logo-white.svg)
+![w:400](../assets/logo-white.svg)
 
 ## Strand AI x Elucidate Bio
 
@@ -143,7 +143,7 @@ graph LR
 
 ## Biomarker coverage across 193 markers
 
-![w:900](assets/postman-biomarker-coverage.png)
+![w:900](../assets/postman-biomarker-coverage.png)
 
 <!-- Walk through the distribution — immune, structural, functional markers all covered -->
 
@@ -153,7 +153,7 @@ graph LR
 
 ## Early reconstruction results
 
-![h:550](assets/postman-reconstruction.png)
+![h:550](../assets/postman-reconstruction.png)
 
 <!-- Point to PCC/SSIM scores per marker — these are early results, expect improvement with fine-tuning -->
 
@@ -267,30 +267,27 @@ graph LR
 
 ## What a design partnership looks like
 
-<div style="display:flex;gap:60px;margin-top:20px">
+<div style="display:flex;gap:60px;margin-top:10px">
 <div style="flex:1">
 
 ### You provide
 
 - Paired H&E + proteomics data (priority indication)
-- Go/no-go correlation thresholds
-- Priority protein targets
-- Success criteria
+- Correlation thresholds & priority targets
 
 </div>
 <div style="flex:1">
 
 ### We deliver
 
-- **Fine-tuned POSTMAN** on your paired data
-- Per-protein correlation coefficients
-- Morphological interpretability per prediction
+- **Fine-tuned POSTMAN** on your paired data with per-protein correlation scores
+- Develop **additional models** together — transcriptomics, IHC panel expansion
 - Deployable on your infrastructure or ours
 
 </div>
 </div>
 
-<!-- We're taking only 2-3 design partnerships to ensure focus -->
+<!-- We're taking only 2-3 design partnerships to ensure focus. Emphasize: not just fine-tuned POSTMAN, we work with them to build the other models too -->
 
 ---
 
@@ -298,7 +295,7 @@ graph LR
 <!-- _footer: "" -->
 <!-- _paginate: false -->
 
-![w:300](assets/logo-white.svg)
+![w:300](../assets/logo-white.svg)
 
 ### Proposed next steps
 

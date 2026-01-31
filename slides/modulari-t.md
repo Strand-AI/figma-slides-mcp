@@ -9,7 +9,7 @@ footer: "Strand AI  ·  Confidential"
 <!-- _footer: "" -->
 <!-- _paginate: false -->
 
-![w:400](assets/logo-white.svg)
+![w:400](../assets/logo-white.svg)
 
 <span style="color:#fff;font-weight:700">Oded</span> — Enable Medicine (petabyte-scale spatial biology platform)
 <span style="color:#fff;font-weight:700">Yue</span> — EM / Pathos / Tempus AI (foundation models, 1000 H200s)

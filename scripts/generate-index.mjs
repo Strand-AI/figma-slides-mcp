@@ -11,14 +11,15 @@ import { readdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
+const SLIDES = path.join(ROOT, "slides");
 const DIST = path.join(ROOT, "dist");
 
 /** Find .md files with marp: true frontmatter. */
 function findDecks() {
-  return readdirSync(ROOT)
+  return readdirSync(SLIDES)
     .filter((f) => f.endsWith(".md"))
     .filter((f) => {
-      const content = readFileSync(path.join(ROOT, f), "utf-8");
+      const content = readFileSync(path.join(SLIDES, f), "utf-8");
       const match = content.match(/^---\n([\s\S]*?)\n---/);
       return match && /^marp:\s*true/m.test(match[1]);
     })
@@ -29,7 +30,7 @@ function findDecks() {
 function generateThumbnail(name) {
   // Use the preprocessed file if it exists (.build/ from CI), otherwise the source .md
   const buildSrc = path.join(ROOT, ".build", `${name}.md`);
-  const src = existsSync(buildSrc) ? buildSrc : path.join(ROOT, `${name}.md`);
+  const src = existsSync(buildSrc) ? buildSrc : path.join(SLIDES, `${name}.md`);
   const out = path.join(DIST, `${name}-thumb.png`);
 
   if (existsSync(out)) return; // already generated

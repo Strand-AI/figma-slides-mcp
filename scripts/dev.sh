@@ -12,7 +12,7 @@ cp -R "$ROOT/assets" "$BUILD/assets"
 cp -R "$ROOT/themes" "$BUILD/themes"
 
 preprocess_all() {
-  for f in "$ROOT"/*.md; do
+  for f in "$ROOT"/slides/*.md; do
     [ -f "$f" ] || continue
     # Only process Marp decks
     head -5 "$f" | grep -q "marp: true" || continue
@@ -41,7 +41,7 @@ trap cleanup INT TERM
 echo "Watching for changes to *.md files..."
 # Use fswatch if available, otherwise poll
 if command -v fswatch &>/dev/null; then
-  fswatch -o "$ROOT"/*.md | while read -r; do
+  fswatch -o "$ROOT"/slides/*.md | while read -r; do
     echo "Change detected, re-processing..."
     preprocess_all
   done
@@ -49,7 +49,7 @@ else
   while true; do
     sleep 2
     changed=false
-    for f in "$ROOT"/*.md; do
+    for f in "$ROOT"/slides/*.md; do
       [ -f "$f" ] || continue
       head -5 "$f" | grep -q "marp: true" || continue
       base="$(basename "$f")"

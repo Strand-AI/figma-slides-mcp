@@ -28,15 +28,16 @@ const SKIP_COLLISION_SELECTORS = new Set([
 ]);
 
 const ROOT = path.resolve(import.meta.dirname, "..");
+const SLIDES = path.join(ROOT, "slides");
 
 // ─── Build decks ────────────────────────────────────────────────────────────
 
 /** Find .md files in root that have `marp: true` in their YAML frontmatter. */
 function findMarpDecks() {
-  return readdirSync(ROOT)
+  return readdirSync(SLIDES)
     .filter((f) => f.endsWith(".md"))
     .filter((f) => {
-      const content = readFileSync(path.join(ROOT, f), "utf-8");
+      const content = readFileSync(path.join(SLIDES, f), "utf-8");
       // Check frontmatter: starts with --- and contains marp: true
       const match = content.match(/^---\n([\s\S]*?)\n---/);
       return match && /^marp:\s*true/m.test(match[1]);
@@ -56,7 +57,7 @@ function buildDecks() {
   for (const deck of decks) {
     const outFile = path.join("dist", deck.replace(/\.md$/, ".html"));
     execSync(
-      `npx marp ${deck} --html --allow-local-files --theme-set themes/ -o ${outFile}`,
+      `npx marp slides/${deck} --html --allow-local-files --theme-set themes/ -o ${outFile}`,
       { cwd: ROOT, stdio: "inherit" }
     );
   }
