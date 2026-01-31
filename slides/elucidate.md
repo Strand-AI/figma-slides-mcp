@@ -296,7 +296,11 @@ graph LR
 <!-- _footer: "" -->
 <!-- _paginate: false -->
 
-![w:300](../assets/logo-white.svg)
+<div style="display:flex;align-items:center;justify-content:center;gap:30px">
+<img src="../assets/elucidate-logo.png" width="280" />
+<span style="color:#D9D1BB;font-size:1.5em;font-weight:200">×</span>
+<img src="../assets/logo-white.svg" width="250" />
+</div>
 
 ### Proposed next steps
 
