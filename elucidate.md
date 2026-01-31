@@ -13,9 +13,13 @@ footer: "Strand AI  ·  Confidential"
 
 ## Strand AI x Elucidate Bio
 
-<span style="color:#D9D1BB">Virtual spatial omics at scale</span>
+<span style="color:#D9D1BB">in-silico spatial omics at scale</span>
 
-<span style="color:#D9D1BB;margin-top:40px;display:block">Backed by Y Combinator (W26)</span>
+<!--
+- Oded: ex-Enable Medicine, petabyte-scale spatial biology platform
+- Yue: ex-Enable / Pathos / Tempus AI, managed 1000+ H200s
+- YC W26
+-->
 
 ---
 
@@ -24,13 +28,21 @@ footer: "Strand AI  ·  Confidential"
 
 ## Recap: what you told us you need
 
-- **H&E → proteomics** (primary) and **H&E → transcriptomics** (secondary)
+- **H&E → proteomics** and **H&E → transcriptomics**
 - Impute missing proteins onto your proteomic stack from IHC on serial sections
 - Longer term: **predict any missing modality** from the other two (H&E, proteomics, transcriptomics)
 - Correlations **> 0.8** — current published methods aren't there
 - Validation against **patient outcomes**, not just reconstruction loss
 
 The throughput bottleneck: spatial omics assays cost **$5-10K+ per slide** and take days. You can't run them on every sample.
+
+<!--
+- From Jan 20 call with Will + Gul
+- Will: proteomics is primary, transcriptomics secondary
+- Gul: asked about IHC → multiplex stack imputation
+- Both want >0.8 PCC, validated on patient outcomes
+- They know their assays can't scale: MACSima = days/round, RNAscope = 12 RNA targets max
+-->
 
 ---
 
@@ -58,6 +70,12 @@ The throughput bottleneck: spatial omics assays cost **$5-10K+ per slide** and t
 </div>
 </div>
 
+<!--
+- S2-omics: Nature Cell Bio 2025, smart ROI selection, 76% cell-type accuracy
+- GHIST: Nature Methods 2025, PCC 0.27 on top 20 SVGs, 0.16 across all genes
+- They asked us to look into these — show we did the homework
+-->
+
 ---
 
 <!-- _class: dark -->
@@ -67,6 +85,12 @@ The throughput bottleneck: spatial omics assays cost **$5-10K+ per slide** and t
 
 Your paired data + our ML and compute expertise = **accelerate past SOTA**.
 We're already training the first cross-modal bridge.
+
+<!--
+- POSTMAN is already training — not a proposal, a product
+- Their single-slide multiomics (Sizun Jiang / MICSSS) = co-registered paired data
+- Best possible training signal — no serial-section alignment artifacts
+-->
 
 ---
 
@@ -97,6 +121,13 @@ We're already training the first cross-modal bridge.
 </div>
 </div>
 
+<!--
+- HEX: Nature Medicine 2026, 755K tiles, 10 patients, 40 biomarkers
+- GigaTIME: Cell 2026, Microsoft/Providence, 21-channel mIF
+- ROSIE: Nature Comms 2025, 50 proteins, 134M patches
+- POSTMAN uses VAE + Flow Matching (MMDiT) architecture
+-->
+
 ---
 
 <!-- _paginate: false -->
@@ -105,6 +136,8 @@ We're already training the first cross-modal bridge.
 
 ![w:900](assets/postman-biomarker-coverage.png)
 
+<!-- Walk through the distribution — immune, structural, functional markers all covered -->
+
 ---
 
 <!-- _paginate: false -->
@@ -112,6 +145,8 @@ We're already training the first cross-modal bridge.
 ## Early reconstruction results
 
 ![h:550](assets/postman-reconstruction.png)
+
+<!-- Point to PCC/SSIM scores per marker — these are early results, expect improvement with fine-tuning -->
 
 ---
 
@@ -142,6 +177,12 @@ We're already training the first cross-modal bridge.
 </div>
 </div>
 
+<!--
+- MACSima can do 200+ proteins but ~1 day per staining round
+- Their RNAscope HiPlex Pro caps at 12 RNA targets
+- This is the slide where the FOMO lands — you can't scale without virtual staining
+-->
+
 ---
 
 <!-- _paginate: false -->
@@ -169,6 +210,8 @@ We're already training the first cross-modal bridge.
 </div>
 </div>
 
+<!-- Their proprietary paired data from Sizun Jiang's single-slide platform is uniquely valuable here — co-registered, not serial-section -->
+
 ---
 
 <!-- _paginate: false -->
@@ -183,6 +226,49 @@ The same cost-reduction strategy applies to transcriptomics:
 - We bring the **architecture, GPUs, and training expertise** — you bring the biology
 
 <small style="margin-top:auto;color:#666">*The S2-omics approach (learn from a small paired region, predict the rest) but trained on your data, your indications, and pushed past their published benchmarks.</small>
+
+<!--
+- Their biggest RNA gap: RNAscope HiPlex Pro = 12 targets, not discovery-scale
+- This slide addresses their weakest modality
+- Will said transcriptomics is secondary but the need is real
+-->
+
+---
+
+<!-- _paginate: false -->
+
+## Expanding your proteomic panel from IHC
+
+<div style="display:flex;gap:60px;margin-top:20px">
+<div style="flex:1">
+
+### The problem
+
+- You have a **50-plex mIF panel** on one section and a **single IHC stain** for an extra protein on a serial section
+- Can you **impute that protein into the multiplex stack** — spatially resolved, registered, ready to analyze?
+- Scale it: train on enough pairs and predict new proteins onto the stack from IHC alone
+
+</div>
+<div style="flex:1">
+
+### Why nobody has solved this yet
+
+- **7-UP**, **MIM-CyCIF**, **ExIF** impute missing channels — but only within a single section
+- No published method fuses **cross-section multiplex + single IHC** into an expanded panel
+- Requires serial section registration + panel-aware imputation + cross-stain translation — we build all three
+
+</div>
+</div>
+
+<!--
+- Gul's use case from Jan 20 call
+- Will asked: how much signal from H&E (~20%) vs existing 50-plex (~80%)?
+- Closest papers (all same-section only):
+  - 7-UP: PNAS Nexus 2023, 7→40 plex
+  - MIM-CyCIF: Comms Bio 2024, 9→25 channels
+  - ExIF: NatComms 2025, anchoring channels concept
+- Genuine open problem — nobody has published cross-section panel expansion
+-->
 
 ---
 
@@ -213,6 +299,8 @@ The same cost-reduction strategy applies to transcriptomics:
 
 </div>
 </div>
+
+<!-- We're taking only 2-3 design partnerships to ensure focus -->
 
 ---
 
