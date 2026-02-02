@@ -89,7 +89,7 @@ Your paired data + our ML and compute expertise = **accelerate past SOTA**.
 graph LR
     A["Your paired data<br/>H&E + mIF"] --> C["POSTMAN<br/>fine-tuned"]
     B["Our ML + compute<br/>architecture, GPUs"] --> C
-    C --> D["Virtual mIF<br/>193 biomarkers<br/>from any H&E"]
+    C --> D["Virtual mIF<br/>from H&E"]
     style A fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
     style B fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
     style C fill:#00120A,color:#F2F1ED,stroke:#00120A
@@ -114,7 +114,7 @@ graph LR
 | Metric | Scope |
 |--------|---------|
 | Patches | **3.45M** (224x224) |
-| Biomarkers | **193 unique** |
+| Biomarkers | **183 unique** |
 | Regions | 18,573 |
 | Total size | **7.5 TB** |
 
@@ -142,11 +142,18 @@ graph LR
 
 <!-- _paginate: false -->
 
-## Biomarker coverage across 193 markers
+## Biomarker coverage across 183 markers
 
 ![w:900](../assets/postman-biomarker-coverage.png)
 
-<!-- Walk through the distribution — immune, structural, functional markers all covered -->
+<!--
+- Distribution is long-tailed: ~20 markers cover 80%+ of patches, then steep dropoff
+- Top 5: CD4 (97%), CD45 (96%), CD8 (96%), Ki67 (95%), CD68 (95%)
+- Also strong coverage: CD3e (93%), FoxP3 (93%), CD31 (92%), HLA-DR (90%), PD1 (90%)
+- 183 of 193 defined markers appear in actual data
+- Bottom 20 markers each cover <0.1% of patches — rare but still trainable
+- Immune, structural, and functional markers all represented
+-->
 
 ---
 
@@ -167,13 +174,13 @@ graph LR
 ```mermaid
 graph LR
     A["Small paired subset<br/>~$5-10K/slide"] --> B["Fine-tune<br/>POSTMAN"]
-    B --> C["Predict 193 biomarkers<br/>across full H&E archive"]
+    B --> C["Predict 183 biomarkers<br/>across full H&E archive"]
     C --> D["Thousands of patients<br/>same budget"]
     style A fill:#F2F1ED,color:#00120A,stroke:#D9D1BB
     style D fill:#00120A,color:#F2F1ED,stroke:#00120A
 ```
 
-Today: spatial proteomics costs **$5-10K/slide**, days of lab time, limits you to hundreds of patients.
+Today: spatial proteomics can cost **$5-10K/slide**, days of lab time, limits you to hundreds of patients.
 With virtual staining: run the assay on a small subset, predict the rest — scale to **thousands**.
 
 <!--
@@ -193,7 +200,7 @@ With virtual staining: run the assay on a small subset, predict the rest — sca
 
 ### Pan-cancer foundation
 
-- Already predicts **193 spatially resolved biomarkers** from H&E
+- Already predicts **183 spatially resolved biomarkers** from H&E
 - Covers immune, structural, and functional markers
 - **3.45M training patches** — largest paired dataset in the field
 
