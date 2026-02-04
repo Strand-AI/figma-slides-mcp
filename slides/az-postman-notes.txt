@@ -1,0 +1,68 @@
+around 6 slides
+
+
+Problem: H&E slides that do not have paired data thus losing so much potential insights - expensive measurement - cannot rework on them - degraded, hard to access
+
+Solution: We virtually stain trained on 8 TB of data
+
+opportunity - competitive landscape
+
+
+THE SCIENCE
+What is the edge
+how it beats SOTA
+
+
+THE MONEY
+currently it cost X to have these slides sequenced this way
+Some you can't even do it cause your tissue samples are degraded or wtv
+WE ONLY NEED THE H&E IMAGE.
+
+
+
+Current status and timeline and future work
+Status: Training
+Expected by: Feb XX
+
+Timeline: validation cox OS wtv (happy to add other validations AZ wants to see)
+
+future work: perturbation
+
+
+
+
+
+
+------- 1 --------
+
+
+
+
+
+------- 2 --------
+
+
+
+
+
+------- 3 --------
+
+
+
+
+
+
+------- 4 --------
+
+
+
+
+
+
+------- 5 --------
+
+
+
+
+
+------- 6 --------
