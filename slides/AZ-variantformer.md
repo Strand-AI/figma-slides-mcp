@@ -11,7 +11,7 @@ footer: "Strand AI  ·  Confidential"
 
 # VariantFormer at Scale
 
-### Strand × AstraZeneca
+### Strand AI × AstraZeneca
 
 ---
 
