@@ -54,7 +54,7 @@ Running VariantFormer at **biobank scale** takes weeks to months — making **it
 <small style="color:#666">*Estimates based on current cloud pricing; subject to capacity and provider rates.</small>
 
 <!--
-- Strand estimate: 128× B200 on Lambda at $5.29/hr for ~5 days
+- Strand estimate: 128× B200 on Lambda at $3.79/gpu/hr for ~5 days ≈ $58k
 - DIY ~$2M estimate: assumes AZ upgrades to B200s (4-5x hardware speedup) but without code optimization
 - Full exome (18k genes) scales proportionally (~60x cost)
 -->
