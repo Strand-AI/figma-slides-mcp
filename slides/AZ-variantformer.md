@@ -1,24 +1,60 @@
+---
+marp: true
+theme: strand
+paginate: true
+footer: "Strand AI  ·  Confidential"
+---
 
+<!-- _class: lead -->
+<!-- _footer: "" -->
+<!-- _paginate: false -->
 
+# VariantFormer at Scale
 
-what do we want it to look like?
+### Strand × AstraZeneca
 
-problem: current workflow to run variant former on X amount X genes will take 300 days.
-solution: we optimized it to run in Y days. you can validate your hypotheses faster.
+---
 
+<!-- _paginate: false -->
 
-opportunity - competitive landscape
-you are the only ones that run this on UK biobank or any data at scale
+## Hypothesis validation is bottlenecked by compute
 
+<div style="display:flex;gap:60px;margin-top:20px">
+<div style="flex:1">
 
-Statistic on how fast we are
+### The challenge
 
-3 slides max
+Running VariantFormer at **biobank scale** takes weeks to months — making **iterative hypothesis testing impractical**
 
-you can kinda do your own validation - Sophie can do it
+</div>
+<div style="flex:1">
 
-our offer:
-You can validate your hypothesis in 5 days VS 3 months
+### What this blocks
 
+- Rapid validation of gene-disease associations
+- Exploring larger gene panels
+- Scaling to UK Biobank cohort sizes
 
-how to build a blackbox pipeline version of this?
+</div>
+</div>
+
+---
+
+<!-- _paginate: false -->
+
+## We turn months into days
+
+**UK Biobank scale** (500k samples × 300 genes × 45 tissues)*
+
+| | Time | Cost |
+|--|------|------|
+| **Strand** | ~1 week | **<$100k** |
+| **DIY** | months | ~$2M |
+
+<small style="color:#666">*Estimates based on current cloud pricing; subject to capacity and provider rates.</small>
+
+<!--
+- Strand estimate: 128× B200 on Lambda at $5.29/hr for ~5 days
+- DIY ~$2M estimate: assumes AZ upgrades to B200s (4-5x hardware speedup) but without code optimization
+- Full exome (18k genes) scales proportionally (~60x cost)
+-->
