@@ -1,13 +1,32 @@
 # Strand AI — Slide Decks
 
-Marp-based slide decks for Strand AI. Each `.md` file in `slides/` with `marp: true` frontmatter is a slide deck.
+Slide decks for Strand AI with PPTX creation and editing capabilities.
 
 ## Stack
 
-- **Marp CLI** for rendering markdown → HTML / PDF / PPTX
-- **Custom theme**: `themes/strand.css` (always use `theme: strand`)
+- **PPTX Skill**: Native PowerPoint creation via PptxGenJS and template editing (see `skills/pptx/`)
+- **Marp CLI** (legacy): For markdown-based slides (`slides/*.md`)
+- **Custom theme**: `themes/strand.css` (for Marp decks, use `theme: strand`)
 - **Font**: PP Telegraf (UltraLight 200, Regular 400, Bold 700, Black 900)
 - **Deploy**: GitHub Actions → Cloudflare Pages (`slides.strandai.bio`, behind Cloudflare Access)
+
+## PPTX Skill
+
+For creating or editing PowerPoint presentations, use the skill in `skills/pptx/`. This provides:
+- **Reading**: Extract text with `python -m markitdown presentation.pptx`
+- **Editing**: Unpack/edit/repack workflow for template-based modifications
+- **Creating**: PptxGenJS for programmatic slide creation from scratch
+
+**Setup:**
+```bash
+# Python dependencies (using uv)
+cd skills/pptx && uv sync
+
+# Node dependencies
+npm install
+```
+
+See `skills/pptx/SKILL.md` for full documentation.
 
 ## Creating a New Deck
 

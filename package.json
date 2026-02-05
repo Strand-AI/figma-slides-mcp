@@ -1,22 +1,28 @@
 {
   "name": "marp-slides",
   "version": "1.0.0",
-  "description": "",
+  "description": "Strand AI slide decks with PPTX creation and Marp support",
   "main": "index.js",
   "scripts": {
-    "dev": "bash scripts/dev.sh",
+    "dev": "node scripts/pptx-dev.js",
+    "dev:marp": "bash scripts/dev.sh",
     "build": "marp --html --allow-local-files --theme-set themes/",
     "pdf": "marp --html --allow-local-files --theme-set themes/ --pdf",
     "pptx": "marp --html --allow-local-files --theme-set themes/ --pptx",
     "check": "node scripts/check-layout.mjs"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["slides", "pptx", "presentations", "strand-ai"],
+  "author": "Strand AI",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "@marp-team/marp-cli": "^4.2.3",
-    "@mermaid-js/mermaid-cli": "^11.12.0"
+    "@mermaid-js/mermaid-cli": "^11.12.0",
+    "pptxgenjs": "^3.12.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.0.0",
+    "sharp": "^0.33.0"
   },
   "devDependencies": {
     "playwright": "^1.58.1"
