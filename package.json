@@ -3,19 +3,39 @@
   "version": "1.0.0",
   "description": "MCP server that bridges Claude Code and Figma Slides via a Figma plugin",
   "type": "module",
+  "bin": {
+    "figma-slides-mcp": "mcp/dist/mcp-server.mjs"
+  },
+  "files": [
+    "mcp/dist/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build:mcp": "node mcp/build.mjs",
-    "dev:mcp": "node mcp/build.mjs --watch"
+    "dev:mcp": "node mcp/build.mjs --watch",
+    "prepublishOnly": "npm run build:mcp"
   },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.1",
-    "ws": "^8.18.0",
-    "zod": "^3.23.0"
+  "keywords": [
+    "mcp",
+    "figma",
+    "figma-slides",
+    "model-context-protocol",
+    "ai",
+    "claude"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Strand-AI/figma-slides-mcp.git"
   },
+  "homepage": "https://github.com/Strand-AI/figma-slides-mcp",
   "devDependencies": {
     "@figma/plugin-typings": "^1.106.0",
+    "@modelcontextprotocol/sdk": "^1.12.1",
     "@types/ws": "^8.5.13",
     "esbuild": "^0.24.2",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "ws": "^8.18.0",
+    "zod": "^3.23.0"
   }
 }

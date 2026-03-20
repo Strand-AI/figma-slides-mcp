@@ -1,5 +1,6 @@
 # figma-slides-mcp
 
+[![npm version](https://img.shields.io/npm/v/figma-slides-mcp.svg)](https://www.npmjs.com/package/figma-slides-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-compatible-8A2BE2)](https://modelcontextprotocol.io)
 
@@ -8,7 +9,7 @@
 ## How It Works
 
 ```
-AI Assistant  ←MCP→  MCP Server  ←WebSocket :3055→  Figma Plugin  ←Plugin API→  Figma Slides
+AI Assistant  <-MCP->  MCP Server  <-WebSocket :3055->  Figma Plugin  <-Plugin API->  Figma Slides
 ```
 
 The MCP server communicates with a Figma plugin running inside your Figma Slides file. The plugin executes JavaScript in the Figma plugin sandbox and returns results.
@@ -18,31 +19,15 @@ The MCP server communicates with a Figma plugin running inside your Figma Slides
 - Node.js 18+
 - A Figma account with access to Figma Slides
 
-## Setup
+## Quick Start
 
-### 1. Clone and build
-
-```bash
-git clone https://github.com/Strand-AI/figma-slides-mcp.git
-cd figma-slides-mcp
-npm install
-npm run build:mcp
-```
-
-### 2. Load the Figma plugin
-
-1. In Figma, open a Slides file
-2. Go to **Plugins > Development > Import plugin from manifest...**
-3. Select `mcp/figma-plugin/manifest.json` from this repo
-4. Run the plugin — it connects to the MCP server via WebSocket on port 3055
-
-### 3. Connect your MCP client
+### 1. Connect to your MCP client
 
 <details open>
 <summary><strong>Claude Code</strong></summary>
 
 ```bash
-claude mcp add figma-slides -- node /path/to/figma-slides-mcp/mcp/dist/mcp-server.mjs
+claude mcp add figma-slides -- npx figma-slides-mcp
 ```
 
 Or add to your project's `.mcp.json`:
@@ -50,8 +35,8 @@ Or add to your project's `.mcp.json`:
 {
   "mcpServers": {
     "figma-slides": {
-      "command": "node",
-      "args": ["/path/to/figma-slides-mcp/mcp/dist/mcp-server.mjs"]
+      "command": "npx",
+      "args": ["figma-slides-mcp"]
     }
   }
 }
@@ -63,7 +48,7 @@ Or add to your project's `.mcp.json`:
 <summary><strong>VS Code</strong></summary>
 
 ```bash
-code --add-mcp '{"name":"figma-slides","command":"node","args":["/path/to/figma-slides-mcp/mcp/dist/mcp-server.mjs"]}'
+code --add-mcp '{"name":"figma-slides","command":"npx","args":["figma-slides-mcp"]}'
 ```
 
 </details>
@@ -76,8 +61,8 @@ Add to `~/.cursor/mcp.json`:
 {
   "mcpServers": {
     "figma-slides": {
-      "command": "node",
-      "args": ["/path/to/figma-slides-mcp/mcp/dist/mcp-server.mjs"]
+      "command": "npx",
+      "args": ["figma-slides-mcp"]
     }
   }
 }
@@ -93,14 +78,22 @@ Any MCP-compatible client can use figma-slides-mcp:
 {
   "mcpServers": {
     "figma-slides": {
-      "command": "node",
-      "args": ["/path/to/figma-slides-mcp/mcp/dist/mcp-server.mjs"]
+      "command": "npx",
+      "args": ["figma-slides-mcp"]
     }
   }
 }
 ```
 
 </details>
+
+### 2. Load the Figma plugin
+
+1. Download the [latest plugin release](https://github.com/Strand-AI/figma-slides-mcp/releases/latest/download/figma-plugin.zip) and unzip it
+2. In Figma, open a Slides file
+3. Go to **Plugins > Development > Import plugin from manifest...**
+4. Select the `manifest.json` from the unzipped folder
+5. Run the plugin — it connects to the MCP server via WebSocket on port 3055
 
 ## MCP Tools
 
@@ -121,7 +114,12 @@ Export a slide as PNG and return it as a base64 image.
 
 ## Development
 
+For contributors who want to work on the project:
+
 ```bash
+git clone https://github.com/Strand-AI/figma-slides-mcp.git
+cd figma-slides-mcp
+npm install
 npm run build:mcp    # Build MCP server + Figma plugin
 npm run dev:mcp      # Watch mode for MCP builds
 ```
