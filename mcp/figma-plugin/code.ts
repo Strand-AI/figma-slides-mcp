@@ -17,7 +17,7 @@ function serializeNode(node: SceneNode): Record<string, unknown> {
     height: node.height,
     visible: node.visible,
   };
-  if ("opacity" in node) base.opacity = (node as any).opacity;
+  if ("opacity" in node) base.opacity = (node as MinimalBlendMixin).opacity;
   if ("characters" in node) base.characters = (node as TextNode).characters;
   if ("fills" in node) {
     try {
@@ -34,9 +34,9 @@ function findSlides(): SceneNode[] {
   const slides: SceneNode[] = [];
   for (const child of figma.currentPage.children) {
     if (child.type === "SLIDE_GRID" && "children" in child) {
-      for (const row of (child as any).children) {
+      for (const row of (child as ChildrenMixin).children) {
         if (row.type === "SLIDE_ROW" && "children" in row) {
-          for (const slide of row.children) slides.push(slide);
+          for (const slide of (row as ChildrenMixin).children) slides.push(slide as SceneNode);
         }
       }
     }
@@ -78,11 +78,19 @@ async function handleCommand(cmd: string, params: Record<string, unknown>): Prom
       case "screenshot_slide": {
         const slide = getSlide(params.slideIndex as number);
         if (!slide) return { success: false, error: `Slide at index ${params.slideIndex} not found` };
+        let exportable: SceneNode = slide;
+        if (!("exportAsync" in exportable) && "children" in exportable) {
+          const child = (exportable as ChildrenMixin).children.find((c) => "exportAsync" in c);
+          if (child) exportable = child as SceneNode;
+        }
+        if (!("exportAsync" in exportable)) {
+          return { success: false, error: `Slide node type "${slide.type}" does not support export` };
+        }
         const settings: ExportSettings = {
           format: "PNG",
           constraint: { type: "SCALE", value: (params.scale as number) ?? 1 },
         };
-        const bytes = await (slide as FrameNode).exportAsync(settings);
+        const bytes = await (exportable as ExportMixin).exportAsync(settings);
         const base64 = figma.base64Encode(bytes);
         return { success: true, data: { base64, format: "png", slideIndex: params.slideIndex } };
       }
