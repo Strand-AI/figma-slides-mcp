@@ -1,4 +1,5 @@
 import * as esbuild from "esbuild";
+import { builtinModules } from "module";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -14,8 +15,14 @@ const serverBuild = {
   target: "node20",
   format: "esm",
   outfile: path.join(__dirname, "dist/mcp-server.mjs"),
-  packages: "external",
-  banner: { js: "#!/usr/bin/env node" },
+  external: builtinModules.flatMap((m) => [m, `node:${m}`]),
+  banner: {
+    js: [
+      "#!/usr/bin/env node",
+      'import { createRequire } from "module";',
+      "const require = createRequire(import.meta.url);",
+    ].join("\n"),
+  },
   sourcemap: true,
 };
 
