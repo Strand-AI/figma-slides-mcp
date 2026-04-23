@@ -1,5 +1,5 @@
 {
-  "name": "figma-slides-mcp",
+  "name": "@strand-ai/figma-slides-mcp",
   "version": "1.0.0",
   "description": "MCP server that bridges Claude Code and Figma Slides via a Figma plugin",
   "type": "module",

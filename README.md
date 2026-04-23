@@ -1,6 +1,6 @@
-# figma-slides-mcp
+# @strand-ai/figma-slides-mcp
 
-[![npm version](https://img.shields.io/npm/v/figma-slides-mcp.svg)](https://www.npmjs.com/package/figma-slides-mcp)
+[![npm version](https://img.shields.io/npm/v/@strand-ai/figma-slides-mcp.svg)](https://www.npmjs.com/package/@strand-ai/figma-slides-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-compatible-8A2BE2)](https://modelcontextprotocol.io)
 
@@ -27,7 +27,7 @@ The MCP server communicates with a Figma plugin running inside your Figma Slides
 <summary><strong>Claude Code</strong></summary>
 
 ```bash
-claude mcp add figma-slides -- npx figma-slides-mcp
+claude mcp add figma-slides -- npx @strand-ai/figma-slides-mcp
 ```
 
 Or add to your project's `.mcp.json`:
@@ -36,7 +36,7 @@ Or add to your project's `.mcp.json`:
   "mcpServers": {
     "figma-slides": {
       "command": "npx",
-      "args": ["figma-slides-mcp"]
+      "args": ["@strand-ai/figma-slides-mcp"]
     }
   }
 }
@@ -48,7 +48,7 @@ Or add to your project's `.mcp.json`:
 <summary><strong>VS Code</strong></summary>
 
 ```bash
-code --add-mcp '{"name":"figma-slides","command":"npx","args":["figma-slides-mcp"]}'
+code --add-mcp '{"name":"figma-slides","command":"npx","args":["@strand-ai/figma-slides-mcp"]}'
 ```
 
 </details>
@@ -62,7 +62,7 @@ Add to `~/.cursor/mcp.json`:
   "mcpServers": {
     "figma-slides": {
       "command": "npx",
-      "args": ["figma-slides-mcp"]
+      "args": ["@strand-ai/figma-slides-mcp"]
     }
   }
 }
@@ -73,13 +73,13 @@ Add to `~/.cursor/mcp.json`:
 <details>
 <summary><strong>Claude Desktop / Other MCP Clients</strong></summary>
 
-Any MCP-compatible client can use figma-slides-mcp:
+Any MCP-compatible client can use @strand-ai/figma-slides-mcp:
 ```json
 {
   "mcpServers": {
     "figma-slides": {
       "command": "npx",
-      "args": ["figma-slides-mcp"]
+      "args": ["@strand-ai/figma-slides-mcp"]
     }
   }
 }

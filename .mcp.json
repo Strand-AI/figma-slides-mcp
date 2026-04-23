@@ -2,7 +2,7 @@
   "mcpServers": {
     "figma-slides": {
       "command": "npx",
-      "args": ["figma-slides-mcp"]
+      "args": ["@strand-ai/figma-slides-mcp"]
     }
   }
 }
