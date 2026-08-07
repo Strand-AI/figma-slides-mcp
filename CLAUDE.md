@@ -23,7 +23,7 @@ The `figma-slides` MCP server requires the "Claude Code Slides" plugin running i
 ```json
 {
   "mcpServers": {
-    "figma-slides": {
+    "figma-slides-dev": {
       "command": "node",
       "args": ["mcp/dist/mcp-server.mjs"]
     }
@@ -38,3 +38,8 @@ npm install            # Install dependencies
 npm run build:mcp      # Build MCP server + Figma plugin
 npm run dev:mcp        # Watch mode for MCP builds
 ```
+
+The checked-in `.mcp.json` registers the server as `figma-slides-dev`, running
+`node mcp/dist/mcp-server.mjs` directly, so run `npm run build:mcp` before
+starting an MCP client inside this repo. (Using `npx @strand-ai/figma-slides-mcp`
+here would resolve to this package's own bin, which npm does not link.)

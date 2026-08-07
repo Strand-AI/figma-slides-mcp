@@ -38,53 +38,83 @@ function killStaleProcess(): void {
   }
 }
 
-function startWebSocketServer(): WebSocketServer {
+// Port-free window we'll keep retrying the bind within before giving up.
+const BIND_RETRY_MS = 5000;
+const BIND_RETRY_INTERVAL_MS = 250;
+
+function handlePluginConnection(ws: WebSocket): void {
+  console.error(`[figma-slides-mcp] Figma plugin connected`);
+  figmaSocket = ws;
+
+  ws.on("message", (data) => {
+    try {
+      const msg = JSON.parse(data.toString());
+      const pending = pendingRequests.get(msg.id);
+      if (pending) {
+        clearTimeout(pending.timer);
+        pendingRequests.delete(msg.id);
+        if (msg.success) {
+          pending.resolve(msg.data);
+        } else {
+          pending.reject(new Error(msg.error || "Unknown plugin error"));
+        }
+      }
+    } catch (e) {
+      console.error("[figma-slides-mcp] Failed to parse plugin message:", e);
+    }
+  });
+
+  ws.on("close", () => {
+    console.error(`[figma-slides-mcp] Figma plugin disconnected`);
+    if (figmaSocket === ws) figmaSocket = null;
+    for (const [id, pending] of pendingRequests) {
+      clearTimeout(pending.timer);
+      pending.reject(new Error("Figma plugin disconnected"));
+      pendingRequests.delete(id);
+    }
+  });
+}
+
+// Bind the WebSocket bridge, retrying on EADDRINUSE with a non-blocking backoff
+// so a quick restart can wait out the previous process releasing the port
+// without freezing the event loop. Resolves only once the socket is actually
+// listening; if the port never frees within BIND_RETRY_MS we exit non-zero
+// rather than serve a half-alive server the client would report as healthy.
+function startWebSocketServer(): Promise<WebSocketServer> {
   killStaleProcess();
 
-  const wss = new WebSocketServer({ port: WS_PORT });
+  const deadline = Date.now() + BIND_RETRY_MS;
 
-  wss.on("connection", (ws) => {
-    console.error(`[figma-slides-mcp] Figma plugin connected`);
-    figmaSocket = ws;
+  return new Promise((resolve) => {
+    const attempt = (): void => {
+      const wss = new WebSocketServer({ port: WS_PORT });
 
-    ws.on("message", (data) => {
-      try {
-        const msg = JSON.parse(data.toString());
-        const pending = pendingRequests.get(msg.id);
-        if (pending) {
-          clearTimeout(pending.timer);
-          pendingRequests.delete(msg.id);
-          if (msg.success) {
-            pending.resolve(msg.data);
-          } else {
-            pending.reject(new Error(msg.error || "Unknown plugin error"));
-          }
+      wss.once("listening", () => {
+        // Only now is the bridge real — wire up steady-state handlers.
+        wss.on("connection", handlePluginConnection);
+        wss.on("error", (err: NodeJS.ErrnoException) => {
+          console.error("[figma-slides-mcp] WebSocket server error:", err.message);
+        });
+        console.error(`[figma-slides-mcp] WebSocket server listening on ws://localhost:${WS_PORT}`);
+        resolve(wss);
+      });
+
+      wss.once("error", (err: NodeJS.ErrnoException) => {
+        if (err.code === "EADDRINUSE" && Date.now() < deadline) {
+          setTimeout(attempt, BIND_RETRY_INTERVAL_MS);
+          return;
         }
-      } catch (e) {
-        console.error("[figma-slides-mcp] Failed to parse plugin message:", e);
-      }
-    });
+        // Either the port is still held past the deadline, or a different bind
+        // error — fail loudly so the client surfaces a real failure.
+        console.error(
+          `[figma-slides-mcp] Could not bind port ${WS_PORT} (${err.code ?? err.message}) — another process is holding it. Exiting.`
+        );
+        process.exit(1);
+      });
+    };
 
-    ws.on("close", () => {
-      console.error(`[figma-slides-mcp] Figma plugin disconnected`);
-      if (figmaSocket === ws) figmaSocket = null;
-      for (const [id, pending] of pendingRequests) {
-        clearTimeout(pending.timer);
-        pending.reject(new Error("Figma plugin disconnected"));
-        pendingRequests.delete(id);
-      }
-    });
+    attempt();
   });
-
-  wss.on("error", (err: NodeJS.ErrnoException) => {
-    if (err.code === "EADDRINUSE") {
-      console.error(`[figma-slides-mcp] Port ${WS_PORT} still in use after cleanup — another process may be holding it`);
-    }
-    console.error("[figma-slides-mcp] WebSocket server error:", err.message);
-  });
-
-  console.error(`[figma-slides-mcp] WebSocket server listening on ws://localhost:${WS_PORT}`);
-  return wss;
 }
 
 let requestIdCounter = 0;
@@ -175,7 +205,9 @@ server.tool(
 // ── Start ────────────────────────────────────────────────
 
 async function main() {
-  startWebSocketServer();
+  // Await a real bind before announcing stdio, so the client never sees a
+  // "healthy" server whose WebSocket bridge failed to come up.
+  await startWebSocketServer();
   const transport = new StdioServerTransport();
   await server.connect(transport);
   console.error("[figma-slides-mcp] MCP server running on stdio");

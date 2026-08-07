@@ -1,8 +1,8 @@
 {
   "mcpServers": {
-    "figma-slides": {
-      "command": "npx",
-      "args": ["@strand-ai/figma-slides-mcp"]
+    "figma-slides-dev": {
+      "command": "node",
+      "args": ["mcp/dist/mcp-server.mjs"]
     }
   }
 }
