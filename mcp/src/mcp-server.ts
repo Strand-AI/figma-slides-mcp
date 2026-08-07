@@ -36,6 +36,18 @@ function killStaleProcess(): void {
   } catch {
     // No process on port — that's fine
   }
+
+  // Wait for the port to actually be released before we try to bind it.
+  const deadline = Date.now() + 5000;
+  while (Date.now() < deadline) {
+    try {
+      const still = execSync(`lsof -ti :${WS_PORT}`, { encoding: "utf-8" }).trim();
+      if (!still) break;
+    } catch {
+      break; // lsof exits non-zero when nothing holds the port
+    }
+    execSync("sleep 0.1");
+  }
 }
 
 function startWebSocketServer(): WebSocketServer {
@@ -78,7 +90,11 @@ function startWebSocketServer(): WebSocketServer {
 
   wss.on("error", (err: NodeJS.ErrnoException) => {
     if (err.code === "EADDRINUSE") {
-      console.error(`[figma-slides-mcp] Port ${WS_PORT} still in use after cleanup — another process may be holding it`);
+      // Without a listener there is no bridge to the Figma plugin, so every
+      // tool call would fail while the client still reports us healthy.
+      // Fail loudly instead of serving a half-alive server.
+      console.error(`[figma-slides-mcp] Port ${WS_PORT} still in use after cleanup — another process is holding it. Exiting.`);
+      process.exit(1);
     }
     console.error("[figma-slides-mcp] WebSocket server error:", err.message);
   });
