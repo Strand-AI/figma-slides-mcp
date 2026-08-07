@@ -23,7 +23,7 @@ The `figma-slides` MCP server requires the "Claude Code Slides" plugin running i
 ```json
 {
   "mcpServers": {
-    "figma-slides": {
+    "figma-slides-dev": {
       "command": "node",
       "args": ["mcp/dist/mcp-server.mjs"]
     }
