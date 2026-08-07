@@ -89,11 +89,19 @@ Any MCP-compatible client can use @strand-ai/figma-slides-mcp:
 
 ### 2. Load the Figma plugin
 
-1. Download the [latest plugin release](https://github.com/Strand-AI/figma-slides-mcp/releases/latest/download/figma-plugin.zip) and unzip it
-2. In Figma, open a Slides file
+> **Note:** importing a local plugin requires the **Figma desktop app** — the
+> browser Plugins menu only lists published plugins.
+
+1. Get the plugin files. They ship inside the npm package, so either:
+   - `npm pack @strand-ai/figma-slides-mcp` and unpack it — the plugin is at
+     `package/mcp/dist/figma-plugin/`, or
+   - clone this repo and run `npm install && npm run build:mcp`, which writes
+     `mcp/dist/figma-plugin/`
+2. In the Figma desktop app, open a Slides file
 3. Go to **Plugins > Development > Import plugin from manifest...**
-4. Select the `manifest.json` from the unzipped folder
-5. Run the plugin — it connects to the MCP server via WebSocket on port 3055
+4. Select `manifest.json` from that `figma-plugin` folder
+5. Run the plugin (**Claude Code Slides**) — it connects to the MCP server via
+   WebSocket on port 3055
 
 ## MCP Tools
 
