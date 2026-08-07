@@ -1,4 +1,4 @@
-// Figma Slides MCP Bridge — Plugin Sandbox (code.ts)
+// Claude Code Slides — Plugin Sandbox (code.ts)
 // Runs in Figma's plugin sandbox. Receives commands from ui.html via postMessage,
 // executes them against the Figma API, and sends results back.
 
