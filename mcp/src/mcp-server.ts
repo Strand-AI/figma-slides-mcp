@@ -92,7 +92,7 @@ let requestIdCounter = 0;
 function sendToPlugin(command: string, params: Record<string, unknown>): Promise<unknown> {
   return new Promise((resolve, reject) => {
     if (!figmaSocket || figmaSocket.readyState !== WebSocket.OPEN) {
-      reject(new Error("Figma plugin is not connected. Open the 'Slides MCP Bridge' plugin in Figma Slides."));
+      reject(new Error("Figma plugin is not connected. Open the 'Claude Code Slides' plugin in Figma Slides (Plugins > Development)."));
       return;
     }
 
