@@ -1,0 +1,18 @@
+{
+  "$schema": "figma-brand/v1",
+  "canvas": { "width": 1920, "height": 1080 },
+  "grid": { "leftMargin": 128, "headerY": 118, "subtitleY": 212 },
+  "colors": {
+    "brandGreen": "#004d3b",
+    "mutedGray": "#8d9893",
+    "ink": "#000000",
+    "background": "#f2f1ed"
+  },
+  "fonts": { "heading": "PP Telegraf", "body": "Inter" },
+  "roles": {
+    "header":   { "font": "heading", "style": "Bold",    "size": 54, "color": "brandGreen", "x": 128, "y": 118 },
+    "subtitle": { "font": "body",    "style": "Regular", "size": 28, "color": "mutedGray",  "x": 128, "y": 212 },
+    "subhead":  { "font": "heading", "style": "Bold",    "size": 32, "color": "brandGreen" },
+    "body":     { "font": "body",    "style": "Regular", "size": 30, "color": "ink" }
+  }
+}

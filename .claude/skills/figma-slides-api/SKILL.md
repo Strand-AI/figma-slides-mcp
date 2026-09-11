@@ -7,6 +7,31 @@ description: Reference for Figma Slides plugin API gotchas and quirks. ALWAYS lo
 
 Consult this before making changes to slides via the `figma-slides` MCP server.
 
+## Brand Schema
+
+Brand/style tokens are **data, not code** — they live in a project dotfile, never hardcoded in `execute` scripts.
+
+**Before any styling or layout work**, read the schema (first match wins):
+
+1. `./.figma-brand.json` (repo root — project-specific, preferred)
+2. `~/.config/figma-brand.json` (global fallback)
+
+If neither exists, sample a polished slide (title/subtitle/body colors, fonts, sizes, left margin, background fill) and **offer to write** a `.figma-brand.json` before proceeding.
+
+**How to apply it:**
+
+- Style by *intent*, mapping each element to a role in `roles`:
+  | Element | Role |
+  |---------|------|
+  | Slide title | `header` |
+  | One-line summary under the title | `subtitle` |
+  | In-body section heading | `subhead` |
+  | Paragraph / body copy | `body` |
+- Resolve `color` and `font` fields through the `colors` and `fonts` maps — they are **names**, not literals (e.g. `"color": "brandGreen"` → `colors.brandGreen`).
+- Use `grid` (`leftMargin`, `headerY`, `subtitleY`) and role `x`/`y` for placement so new elements land on the deck's grid.
+- **Never** write raw hex, font names, or sizes into `execute` code — always resolve them from the schema so one edit to the dotfile restyles every slide.
+- Load fonts (`loadFont`) for every family + style referenced by the roles you apply (see Font Loading below).
+
 ## Skipping Slides
 
 To hide a slide from a presentation, use `isSkippedSlide` — NOT `visible`.
