@@ -1,13 +1,12 @@
 {
-  "name": "Claude Code Slides",
-  "id": "1601312659815206550",
+  "name": "Claude Code Slides Beta",
   "api": "1.0.0",
   "main": "code.js",
   "ui": "ui.html",
   "documentAccess": "dynamic-page",
   "editorType": ["slides"],
   "networkAccess": {
-    "allowedDomains": ["ws://localhost:3055"],
-    "reasoning": "Connects to local MCP server via WebSocket on localhost:3055"
+    "allowedDomains": ["ws://localhost:__FIGMA_SLIDES_WS_PORT__"],
+    "reasoning": "Connects to local MCP server via WebSocket on localhost at the configured beta port"
   }
 }

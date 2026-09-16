@@ -14,6 +14,7 @@
   "scripts": {
     "build:mcp": "node mcp/build.mjs",
     "dev:mcp": "node mcp/build.mjs --watch",
+    "beta:daemon": "node mcp/dist/daemon.mjs",
     "prepublishOnly": "npm run build:mcp"
   },
   "keywords": [

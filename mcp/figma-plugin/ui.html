@@ -21,7 +21,7 @@
   <body>
     <div id="status" class="disconnected">Connecting to MCP server...</div>
     <script>
-      const WS_URL = "ws://localhost:3055";
+      const WS_URL = "ws://localhost:__FIGMA_SLIDES_WS_PORT__";
       let ws = null;
       let reconnectTimer = null;
       const statusEl = document.getElementById("status");
